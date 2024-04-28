@@ -42,5 +42,6 @@ return {
 				end,
 			}
 		)
+		vim.diagnostic.config({ virtual_text = true })
 	end,
 }
