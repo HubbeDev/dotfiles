@@ -14,6 +14,7 @@ return {
                 "yaml",
                 "svelte",
                 "tsx",
+                "php",
                 "markdown",
                 "bash",
                 "vim",
