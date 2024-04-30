@@ -28,7 +28,10 @@ return {
 
 		local phpcs = lint.linters.phpcs
 		phpcs.args = {
-			"--standard=WordPress",
+			"-q",
+			"--standard=PSR2",
+			"--report=json",
+			"-", -- need `-` at the end for stdin support
 		}
 
 		local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })

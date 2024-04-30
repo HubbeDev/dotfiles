@@ -11,6 +11,14 @@ return { -- Autoformat
 			mode = "",
 			desc = "[F]ormat buffer",
 		},
+		{
+			"<leader>F",
+			function()
+				require("conform").format({ async = true, lsp_fallback = true, range = true })
+			end,
+			mode = "v",
+			desc = "[F]ormat selection",
+		},
 	},
 	config = function()
 		local conform = require("conform")
@@ -37,23 +45,23 @@ return { -- Autoformat
 				local disable_filetypes = { c = true, cpp = true }
 				return {
 					async = false,
-					timeout_ms = 500,
+					timeout_ms = 10000,
 					lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
 				}
 			end,
-			formatters = {
-				phpcbf = {
-					command = "phpcbf",
-					args = {
-						"-q",
-						"--standard=WordPress",
-						"--stdin-path=$FILENAME",
-						"-",
-					},
-					-- Set to false to disable merging the config with the base definition
-					inherit = true,
-				},
-			},
+			-- formatters = {
+			-- 	phpcbf = {
+			-- 		command = "phpcbf",
+			-- 		args = {
+			-- 			"-q",
+			-- 			"--standard=WordPress",
+			-- 			"--stdin-path=$FILENAME",
+			-- 			"-",
+			-- 		},
+			-- 		-- Set to false to disable merging the config with the base definition
+			-- 		inherit = true,
+			-- 	},
+			-- },
 		})
 	end,
 }
