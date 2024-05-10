@@ -34,9 +34,8 @@ return { -- Autoformat
 				json = { { "prettierd", "prettier" } },
 				yaml = { { "prettierd", "prettier" } },
 				markdown = { { "prettierd", "prettier" } },
-				php = { { "phpcbf" } },
+				php = { "phpcbf" },
 			},
-
 			notify_on_error = true,
 			format_on_save = function(bufnr)
 				-- Disable "format_on_save lsp_fallback" for languages that don't
@@ -49,19 +48,25 @@ return { -- Autoformat
 					lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
 				}
 			end,
-			-- formatters = {
-			-- 	phpcbf = {
-			-- 		command = "phpcbf",
-			-- 		args = {
-			-- 			"-q",
-			-- 			"--standard=WordPress",
-			-- 			"--stdin-path=$FILENAME",
-			-- 			"-",
-			-- 		},
-			-- 		-- Set to false to disable merging the config with the base definition
-			-- 		inherit = true,
-			-- 	},
-			-- },
+			formatters = {
+				phpcbf = {
+					command = "phpcbf",
+					args = {
+						"--standard=WordPress",
+					},
+					-- Set to false to disable merging the config with the base definition
+					inherit = false,
+				},
+				php_cs_fixer = {
+					command = "php-cs-fixer",
+					args = {
+						"fix",
+						"--rules=@PSR12", -- Formatting preset. Other presets are available, see the php-cs-fixer docs.
+						"$FILENAME",
+					},
+					stdin = false,
+				},
+			},
 		})
 	end,
 }
