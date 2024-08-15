@@ -19,6 +19,11 @@ ln -s  ~/dotfiles/nvim ~/.config/nvim
  ln -s  ~/dotfiles/.tmux.conf ~/.tmux.conf
 ```
 
+#### Symlink kitty config
+```
+ ln -s  ~/dotfiles/kitty ~/.config/kitty
+```
+
 
 #### Optional! Symlink power10k theme.
 ```
