@@ -1,4 +1,4 @@
-return { -- Autoformat
+return {
 	"stevearc/conform.nvim",
 	event = { "BufWritePre", "BufNewFile" },
 	lazy = false,
@@ -23,6 +23,29 @@ return { -- Autoformat
 	config = function()
 		local conform = require("conform")
 
+		-- Function to detect WordPress coding standard
+		local function is_wordpress_standard()
+			local paths = { ".phpcs.xml", "phpcs.xml", ".phpcs.xml.dist", "phpcs.xml.dist" }
+			for _, path in ipairs(paths) do
+				if vim.fn.filereadable(vim.fn.getcwd() .. "/" .. path) == 1 then
+					return true
+				end
+			end
+			return false
+		end
+
+		-- Function to detect local binaries in the project
+		local function get_local_bin(cmd)
+			local cwd = vim.fn.getcwd()
+			local local_bin = cwd .. "/vendor/bin/" .. cmd
+			if vim.fn.executable(local_bin) == 1 then
+				return local_bin
+			else
+				-- Fallback to global binary
+				return cmd
+			end
+		end
+
 		conform.setup({
 			formatters_by_ft = {
 				lua = { "stylua" },
@@ -34,13 +57,17 @@ return { -- Autoformat
 				json = { { "prettierd", "prettier" } },
 				yaml = { { "prettierd", "prettier" } },
 				markdown = { { "prettierd", "prettier" } },
-				php = { "phpcbf" },
+				php = function()
+					local cmd = get_local_bin("phpcbf")
+					if vim.fn.executable(cmd) == 1 then
+						return { "phpcbf" }
+					else
+						return { "php_cs_fixer" }
+					end
+				end,
 			},
 			notify_on_error = true,
 			format_on_save = function(bufnr)
-				-- Disable "format_on_save lsp_fallback" for languages that don't
-				-- have a well standardized coding style. You can add additional
-				-- languages here or re-enable it for the disabled ones.
 				local disable_filetypes = { c = true, cpp = true }
 				return {
 					async = false,
@@ -50,18 +77,27 @@ return { -- Autoformat
 			end,
 			formatters = {
 				phpcbf = {
-					command = "phpcbf",
+					command = get_local_bin("phpcbf"),
 					args = {
-						"--standard=WordPress",
+						"--standard=WordPress", -- Adjust as necessary for your project,
+						"-q",
+						"--stdin-path=",
+						"$FILENAME",
+						"-",
 					},
-					-- Set to false to disable merging the config with the base definition
+					stdin = true,
+					-- 0: no errors found
+					-- 1: errors found
+					-- 2: fixable errors found
+					-- 3: processing error
+					exit_codes = { 0, 1, 2 },
 					inherit = false,
 				},
 				php_cs_fixer = {
 					command = "php-cs-fixer",
 					args = {
 						"fix",
-						"--rules=@PSR12", -- Formatting preset. Other presets are available, see the php-cs-fixer docs.
+						"--rules=@PSR12", -- Formatting preset for PSR-12 standard.
 						"$FILENAME",
 					},
 					stdin = false,
