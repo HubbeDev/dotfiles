@@ -56,6 +56,7 @@ return {
 				html = { { "prettierd", "prettier" } },
 				json = { { "prettierd", "prettier" } },
 				yaml = { { "prettierd", "prettier" } },
+				rust = { "rustfmt", lsp_format = "fallback" },
 				markdown = { { "prettierd", "prettier" } },
 				php = function()
 					local cmd = get_local_bin("phpcbf")
