@@ -58,14 +58,14 @@ return {
 				yaml = { { "prettierd", "prettier" } },
 				rust = { "rustfmt", lsp_format = "fallback" },
 				markdown = { { "prettierd", "prettier" } },
-				php = function()
+				--[[ php = function()
 					local cmd = get_local_bin("phpcbf")
 					if vim.fn.executable(cmd) == 1 then
 						return { "phpcbf" }
 					else
 						return { "php_cs_fixer" }
 					end
-				end,
+				end, ]]
 			},
 			notify_on_error = true,
 			format_on_save = function(bufnr)
