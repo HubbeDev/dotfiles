@@ -1,5 +1,4 @@
 return {
-    "xiyaowong/transparent.nvim",
-    cmd = "TransparentToggle",
-
+	"xiyaowong/transparent.nvim",
+	cmd = "TransparentToggle",
 }

@@ -29,7 +29,7 @@ return {
 		local phpcs = lint.linters.phpcs
 		phpcs.args = {
 			"-q",
-			"--standard=WordPress",
+			"--standard=PSR12",
 			"--report=json",
 			"-", -- need `-` at the end for stdin support
 		}
@@ -42,6 +42,6 @@ return {
 				lint.try_lint()
 			end,
 		})
-		vim.diagnostic.config({ virtual_text = false })
+		vim.diagnostic.config({ virtual_text = true })
 	end,
 }
