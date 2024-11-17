@@ -49,9 +49,18 @@ return {
 		conform.setup({
 			formatters_by_ft = {
 				lua = { "stylua" },
-				javascript = { { "prettierd", "prettier" } },
-				typescript = { { "prettierd", "prettier" } },
-				svelte = { { "prettierd", "prettier" } },
+				javascript = {--[[  "prettierd", ]]
+					"prettier",
+					stop_after_first = true,
+				},
+				typescript = { --[[ "prettierd", ]]
+					"prettier",
+					stop_after_first = true,
+				},
+				svelte = {--[[  "prettierd", ]]
+					"prettier",
+					stop_after_first = true,
+				},
 				css = { { "prettierd", "prettier" } },
 				html = { { "prettierd", "prettier" } },
 				json = { { "prettierd", "prettier" } },
