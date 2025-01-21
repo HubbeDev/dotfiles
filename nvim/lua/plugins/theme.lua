@@ -8,4 +8,7 @@
 -- 	end,
 -- }
 
-return { "rose-pine/neovim", name = "rose-pine" }
+-- return { "rose-pine/neovim", name = "rose-pine" }
+
+-- nord
+return { "shaunsingh/nord.nvim", name = "nord" }
