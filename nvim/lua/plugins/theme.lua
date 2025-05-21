@@ -8,7 +8,18 @@
 -- 	end,
 -- }
 
--- return { "rose-pine/neovim", name = "rose-pine" }
+-- return {
+-- 	"rose-pine/neovim",
+-- 	name = "rose-pine",
+-- 	config = function()
+-- 		vim.cmd("colorscheme rose-pine")
+-- 	end,
+-- }
 
--- nord
-return { "shaunsingh/nord.nvim", name = "nord" }
+return {
+	"olimorris/onedarkpro.nvim",
+	priority = 1000,
+}
+
+-- -- somewhere in your config:
+-- vim.cmd("colorscheme onedark")

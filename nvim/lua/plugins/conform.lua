@@ -49,23 +49,16 @@ return {
 		conform.setup({
 			formatters_by_ft = {
 				lua = { "stylua" },
-				javascript = { { "prettierd", "prettier" } },
-				typescript = { { "prettierd", "prettier" } },
-				svelte = { { "prettierd", "prettier" } },
-				css = { { "prettierd", "prettier" } },
-				html = { { "prettierd", "prettier" } },
-				json = { { "prettierd", "prettier" } },
-				yaml = { { "prettierd", "prettier" } },
-				rust = { "rustfmt", lsp_format = "fallback" },
-				markdown = { { "prettierd", "prettier" } },
-				--[[ php = function()
-					local cmd = get_local_bin("phpcbf")
-					if vim.fn.executable(cmd) == 1 then
-						return { "phpcbf" }
-					else
-						return { "php_cs_fixer" }
-					end
-				end, ]]
+				javascript = { "prettierd", "prettier" },
+				typescript = { "prettierd", "prettier" },
+				svelte = { "prettierd", "prettier" },
+				css = { "prettierd", "prettier" },
+				html = { "prettierd", "prettier" },
+				json = { "prettierd", "prettier" },
+				yaml = { "prettierd", "prettier" },
+				rust = { "rustfmt", "lsp_format" },
+				markdown = { "prettierd", "prettier" },
+				-- php = { "phpcbf" },
 			},
 			notify_on_error = true,
 			format_on_save = function(bufnr)
@@ -74,13 +67,14 @@ return {
 					async = false,
 					timeout_ms = 10000,
 					lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
+					stop_after_first = true, -- Ensure it stops after first available formatter
 				}
 			end,
 			formatters = {
 				phpcbf = {
 					command = get_local_bin("phpcbf"),
 					args = {
-						"--standard=WordPress", -- Adjust as necessary for your project,
+						"--standard=PSR12", -- Adjust as necessary for your project,
 						"-q",
 						"--stdin-path=",
 						"$FILENAME",

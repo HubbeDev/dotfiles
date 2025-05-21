@@ -29,7 +29,7 @@ return {
 		local phpcs = lint.linters.phpcs
 		phpcs.args = {
 			"-q",
-			"--standard=WordPress",
+			"--standard=PSR12",
 			"--report=json",
 			"-", -- need `-` at the end for stdin support
 		}

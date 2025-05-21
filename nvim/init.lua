@@ -28,3 +28,4 @@ require("vim-api")
 --    :Lazy update
 --
 require("lazy").setup("plugins")
+vim.cmd("colorscheme onedark_dark")

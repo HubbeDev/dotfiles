@@ -26,7 +26,7 @@ return {
 					"lua_ls",
 					"html",
 					"quick_lint_js",
-					"tsserver",
+					"ts_ls",
 					"tailwindcss",
 					"svelte",
 					"intelephense",
@@ -43,7 +43,21 @@ return {
 			lspconfig.lua_ls.setup({})
 			lspconfig.html.setup({})
 			lspconfig.quick_lint_js.setup({})
-			lspconfig.tsserver.setup({})
+			lspconfig.ts_ls.setup({
+				settings = {
+					typescript = {
+						diagnostics = {
+							enable = true,
+						},
+						suggest = {
+							enabled = true,
+						},
+						validate = {
+							enable = true,
+						},
+					},
+				},
+			})
 			lspconfig.tailwindcss.setup({})
 			lspconfig.svelte.setup({})
 			lspconfig.cssls.setup({})
@@ -120,6 +134,15 @@ return {
 						},
 					},
 				},
+			})
+
+			-- Ensure diagnostics are properly configured globally
+			vim.diagnostic.config({
+				virtual_text = true,
+				signs = true,
+				underline = true,
+				update_in_insert = false,
+				severity_sort = true,
 			})
 
 			--  This function gets run when an LSP attaches to a particular buffer.
